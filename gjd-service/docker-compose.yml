@@ -1,0 +1,36 @@
+version: '3.11.7'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 88888888
+      MYSQL_DATABASE: hello-auth
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+  app:
+    build: .
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: 88888888
+      DB_NAME: hello-auth
+      
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    ports:
+      - "8080:8080"
+
+volumes:
+  db-data:
+networks:
+ app-network:
