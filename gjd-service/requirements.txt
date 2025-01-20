@@ -1,0 +1,7 @@
+fastapi
+passlib
+PyJWT
+redis
+uvicorn
+sqlalchemy
+python-dotenv
